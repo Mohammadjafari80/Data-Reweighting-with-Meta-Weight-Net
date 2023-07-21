@@ -36,6 +36,7 @@ parser.add_argument("--meta_lr", type=float, default=1e-5)
 parser.add_argument("--meta_weight_decay", type=float, default=0.0)
 
 parser.add_argument("--dataset", type=str, default="cifar10")
+parser.add_argument("--subset_indices", type=int, nargs="+", default=None)
 parser.add_argument("--num_meta", type=int, default=1000)
 parser.add_argument("--imbalanced_factor", type=int, default=None)
 parser.add_argument("--corruption_type", type=str, default=None)
@@ -75,6 +76,7 @@ if args.retrain:
     resume_idxes=resume_idxes,
     resume_labels=resume_labels,
     sampler=sampler,
+    subset_indices=args.subset_indices,
 )
 
 print(Counter(train_dataloader.dataset.targets))

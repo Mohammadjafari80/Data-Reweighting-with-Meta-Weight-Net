@@ -45,6 +45,7 @@ def build_dataloader(
     resume_labels=None,
     sampler=None,
     analysis=False,
+    subset_indices=None,
 ):
     np.random.seed(seed)
     normalize = transforms.Normalize(
@@ -84,6 +85,10 @@ def build_dataloader(
     train_dataset = dataset_list[dataset](
         root="../data", train=True, download=True, transform=train_transforms
     )
+
+    if subset_indices is not None:
+        train_dataset = torch.utils.data.Subset(train_dataset, subset_indices)
+
     test_dataset = dataset_list[dataset](
         root="../data", train=False, transform=test_transforms
     )
