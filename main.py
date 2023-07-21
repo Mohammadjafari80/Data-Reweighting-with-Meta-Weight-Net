@@ -181,10 +181,8 @@ class ReweightingEngine(Engine):
         return {"acc": acc, "best_acc": best_acc}
 
 
-outer_config = Config(
-    type="darts", precision=args.precision, log_step=100, retain_graph=True
-)
-inner_config = Config(type="darts", precision=args.precision, unroll_steps=1)
+outer_config = Config(type="darts", log_step=100, retain_graph=True)
+inner_config = Config(type="darts", unroll_steps=1)
 engine_config = EngineConfig(
     train_iters=15000,
     valid_step=500,
