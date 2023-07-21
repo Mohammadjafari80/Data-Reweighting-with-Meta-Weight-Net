@@ -5,6 +5,17 @@ import torchvision.datasets
 import torchvision.transforms as transforms
 from torch.utils.data import DataLoader, RandomSampler, SequentialSampler
 
+import torch
+from torch.utils.data import Dataset, Subset
+
+
+class CustomSubset(Subset):
+    def __init__(self, dataset, indices):
+        super(CustomSubset, self).__init__(dataset, indices)
+        self.classes = np.array(dataset.classes)
+        self.targets = np.array([dataset.targets[i] for i in indices])
+        self.data = np.array([dataset.data[i] for i in indices])
+
 
 def uniform_corruption(corruption_ratio, num_classes):
     eye = np.eye(num_classes)
@@ -87,7 +98,7 @@ def build_dataloader(
     )
 
     if subset_indices is not None:
-        train_dataset = torch.utils.data.Subset(train_dataset, subset_indices)
+        train_dataset = CustomSubset(train_dataset, subset_indices)
 
     test_dataset = dataset_list[dataset](
         root="../data", train=False, transform=test_transforms
