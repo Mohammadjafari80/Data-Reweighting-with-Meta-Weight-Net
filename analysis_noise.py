@@ -12,10 +12,6 @@ from model import *
 from data import *
 from utils import *
 
-from betty.engine import Engine
-from betty.problems import ImplicitProblem
-from betty.configs import Config, EngineConfig
-
 
 parser = argparse.ArgumentParser(description="Meta_Weight_Net")
 parser.add_argument("--device", type=str, default="cuda")

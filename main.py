@@ -11,7 +11,7 @@ from data import *
 from utils import *
 
 from betty.engine import Engine
-from betty.problems import ImplicitProblem, MetaIterativeProblem
+from betty.problems import ImplicitProblem
 from betty.configs import Config, EngineConfig
 
 
