@@ -12,6 +12,7 @@ from model import *
 from data import *
 from utils import *
 
+import os
 
 parser = argparse.ArgumentParser(description="Meta_Weight_Net")
 parser.add_argument("--device", type=str, default="cuda")
@@ -42,6 +43,8 @@ parser.add_argument("--max_epoch", type=int, default=120)
 
 parser.add_argument("--meta_interval", type=int, default=1)
 parser.add_argument("--paint_interval", type=int, default=20)
+
+parser.add_argument("--output_dir", type=str, default="./weights")
 
 args = parser.parse_args()
 print(args)
@@ -147,7 +150,10 @@ with torch.no_grad():
 print("\n==================================================")
 final_noise_weight = sample_weights[noise_idx]
 final_correct_weight = sample_weights[correct_idx]
-np.save('final_weight.npy', final_correct_weight)
+
+os.makedirs(args.output_dir)
+output_path = os.path.join(args.output_dir)
+np.save(os.path.join(output_path, "weights.npy"), final_correct_weight)
 print("final correct weight:", np.mean(final_correct_weight))
 print("final noise weight:", np.mean(final_noise_weight))
 n, bins, patches = plt.hist(
@@ -158,4 +164,5 @@ n, bins, patches = plt.hist(
 )
 plt.xlabel("weight")
 plt.ylabel("frequency")
+plt.savefig(os.path.join(output_path, "hist_plot.pdf"))
 plt.show()
