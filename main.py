@@ -9,6 +9,7 @@ from torch.utils.data import WeightedRandomSampler
 from model import *
 from data import *
 from utils import *
+import os
 
 from betty.engine import Engine
 from betty.problems import ImplicitProblem
@@ -170,7 +171,9 @@ class ReweightingEngine(Engine):
         acc = correct / total * 100
         if best_acc < acc:
             best_acc = acc
+            
         if not args.retrain and not args.baseline:
+            os.makedirs(f"{args.dataset}/", exist_ok=True)
             torch.save(
                 self.inner.state_dict(), f"{args.dataset}/net_{self.global_step}.pt"
             )

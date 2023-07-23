@@ -147,6 +147,7 @@ with torch.no_grad():
 print("\n==================================================")
 final_noise_weight = sample_weights[noise_idx]
 final_correct_weight = sample_weights[correct_idx]
+np.save('final_weight.npy', final_correct_weight)
 print("final correct weight:", np.mean(final_correct_weight))
 print("final noise weight:", np.mean(final_noise_weight))
 n, bins, patches = plt.hist(
