@@ -171,7 +171,7 @@ class ReweightingEngine(Engine):
         acc = correct / total * 100
         if best_acc < acc:
             best_acc = acc
-            
+
         if not args.retrain and not args.baseline:
             os.makedirs(f"{args.dataset}/", exist_ok=True)
             torch.save(
@@ -189,7 +189,6 @@ inner_config = Config(type="darts", unroll_steps=1)
 engine_config = EngineConfig(
     train_iters=15000,
     valid_step=500,
-    strategy=args.strategy,
     roll_back=args.rollback,
     logger_type="tensorboard",
 )
